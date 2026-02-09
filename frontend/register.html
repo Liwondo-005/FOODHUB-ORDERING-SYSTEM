@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Register - FoodHub</title></head><body>
+<h2>Register</h2>
+<form id="regForm">
+  <label>Name: <input type="text" id="name" required></label><br>
+  <label>Email: <input type="email" id="email" required></label><br>
+  <label>Password: <input type="password" id="password" required></label><br>
+  <label>Role: <select id="role"><option value="customer">Customer</option><option value="owner">Owner</option></select></label><br>
+  <button type="submit">Register</button>
+</form>
+<script>
+document.getElementById('regForm').addEventListener('submit', async function(e){
+  e.preventDefault();
+  const name = document.getElementById('name').value;
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
+  const role = document.getElementById('role').value;
+  const res = await fetch('/backend/auth/register.php', {
+    method: 'POST',
+    headers: {'Content-Type':'application/json'},
+    body: JSON.stringify({name,email,password,role})
+  });
+  const data = await res.json();
+  alert(JSON.stringify(data));
+});
+</script>
+</body></html>

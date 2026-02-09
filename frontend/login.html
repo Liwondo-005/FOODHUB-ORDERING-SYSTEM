@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Login - FoodHub</title></head><body>
+<h2>Login</h2>
+<form id="loginForm">
+  <label>Email: <input type="email" id="email" required></label><br>
+  <label>Password: <input type="password" id="password" required></label><br>
+  <button type="submit">Login</button>
+</form>
+<script>
+document.getElementById('loginForm').addEventListener('submit', async function(e){
+  e.preventDefault();
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
+  const res = await fetch('/backend/auth/login.php', {
+    method: 'POST',
+    headers: {'Content-Type':'application/json'},
+    body: JSON.stringify({email,password})
+  });
+  const data = await res.json();
+  alert(JSON.stringify(data));
+});
+</script>
+</body></html>
